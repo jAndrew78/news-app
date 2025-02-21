@@ -29,11 +29,11 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     <View onLayout={onTabbarLayout} style={styles.tabbar}>
       <Animated.View style={[animatedStyle, {
         position: 'absolute',
-        backgroundColor: Colors.tint,
-        top: 52,
-        left: 34,
-        height: 8,
-        width: 40,
+        backgroundColor: Colors.darkGrey,
+        top: 45,
+        left: 20,
+        height: 15,
+        width: 62,
       }]} />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];

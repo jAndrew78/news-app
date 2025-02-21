@@ -15,18 +15,12 @@ const TabBarButton = ({
   isFocused,
   routeName,
   label,
-}: {
-  onPress: Function;
-  onLongPress: Function;
-  isFocused: boolean;
-  routeName: string;
-  label: string;
 }) => {
   const opacity = useSharedValue(0);
 
   useEffect(() => {
     opacity.value = withSpring(
-      typeof isFocused === "boolean" ? (isFocused ? 1 : 0) : isFocused,
+      typeof isFocused === "boolean" ? (isFocused ? 0 : 0) : isFocused,
       { duration: 50 }
     );
   }, [opacity, isFocused]);
@@ -46,14 +40,15 @@ const TabBarButton = ({
       style={styles.tabbarBtn}
     >
       {icon[routeName]({
-        color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
+        color: isFocused ? Colors.darkGrey : Colors.tabIconDefault,
         focused: isFocused,
       })}
       <Animated.Text
         style={[
           {
-            color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
+            color: isFocused ? Colors.white : Colors.darkGrey,
             fontSize: 12,
+            fontWeight: isFocused ? "800" : "500",
           },
           animatedTextStyle,
         ]}
