@@ -25,13 +25,13 @@ const TabBarButton = ({
     );
   }, [opacity, isFocused]);
 
-  const animatedTextStyle = useAnimatedStyle(() => {
-    const opacityValue = interpolate(opacity.value, [0, 1], [1, 0]);
+  // const animatedTextStyle = useAnimatedStyle(() => {
+  //   const opacityValue = interpolate(opacity.value, [0, 1], [1, 0]);
 
-    return {
-      opacity: opacityValue,
-    };
-  });
+  //   return {
+  //     opacity: opacityValue,
+  //   };
+  // });
 
   return (
     <Pressable
@@ -50,7 +50,7 @@ const TabBarButton = ({
             fontSize: 12,
             fontWeight: isFocused ? "800" : "500",
           },
-          animatedTextStyle,
+          // animatedTextStyle,
         ]}
       >
         {label}
