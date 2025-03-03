@@ -21,7 +21,6 @@ const Page = () => {
           <Animated.Text
             style={styles.titleText}
             entering={FadeIn.delay(400).duration(1000)}
-
           >
             The Daily Zen
           </Animated.Text>
