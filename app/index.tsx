@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
     paddingHorizontal: 30,
     gap: 30,
-    backgroundColor: "#00000050",
+    // backgroundColor: "#00000050",
   },
   titleText: {
     flex: 1,
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 140,
     borderRadius: 10,
-    backgroundColor: "#99999920",
+    backgroundColor: Colors.opaqueGrey,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#ddd",
+    color: Colors.lightGrey,
   },
 });
