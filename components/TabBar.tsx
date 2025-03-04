@@ -5,7 +5,8 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-na
 import { useState } from "react";
 import { Colors } from "@/constants/Colors";
 
-export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+
+const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const [dimensions, setDimensions] = useState({ height: 20, width: 100 });
 
   const buttonWidth = dimensions.width / state.routes.length;
@@ -91,4 +92,6 @@ const styles = StyleSheet.create({
     paddingBottom:40,
     backgroundColor: Colors.white,
   }
-})
+});
+
+export default TabBar;

@@ -9,13 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 
-const TabBarButton = ({
-  onPress,
-  onLongPress,
-  isFocused,
-  routeName,
-  label,
-}) => {
+const TabBarButton = ({ onPress, onLongPress, isFocused, routeName, label }) => {
   const opacity = useSharedValue(0);
 
   useEffect(() => {
@@ -59,8 +53,6 @@ const TabBarButton = ({
   );
 };
 
-export default TabBarButton;
-
 const styles = StyleSheet.create({
   tabbarBtn: {
     flex: 1,
@@ -69,3 +61,5 @@ const styles = StyleSheet.create({
     gap: 5,
   },
 });
+
+export default TabBarButton;
