@@ -1,8 +1,8 @@
 import { Colors } from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 
-const Searchbar = () => {
+const SearchBar = () => {
   return (
     <View style={styles.container}>
       <Ionicons name="search-outline" size={20} color={Colors.medGrey} />
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   gap: 10,
   padding: 12,
   marginHorizontal: 20,
+  marginBottom: 20,
   borderRadius: 10,
   backgroundColor: Colors.lightGrey,
  },
@@ -33,4 +34,4 @@ const styles = StyleSheet.create({
  },
 })
 
-export default Searchbar
+export default SearchBar;

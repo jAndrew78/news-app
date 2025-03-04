@@ -4,8 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar';
 import axios from "axios";
 import { NewsDataType } from '@/types';
-import Header from '@/components/Header';
-import Searchbar from '@/components/Searchbar';
+import { Header, SearchBar, BreakingNews } from '@/components';
 
 type Props = {}
 
@@ -34,10 +33,8 @@ const Page = (props: Props) => {
     <View style={styles(safeTop).container}>
       <StatusBar style="dark" />
       <Header />
-      <Searchbar />
-      {breakingNews?.map((item, index) => (
-        <Text>{item.title}</Text>
-      ))}
+      <SearchBar />
+      <BreakingNews newsList={breakingNews} />
     </View>
   )
 };
