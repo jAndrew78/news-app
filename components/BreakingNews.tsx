@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { useState, useEffect, useRef } from 'react';
+import { StyleSheet, Text, useWindowDimensions, View, ViewToken } from 'react-native'
+import Animated, { scrollTo, useAnimatedRef, useAnimatedScrollHandler, useDerivedValue, useSharedValue } from 'react-native-reanimated';
 import { NewsDataType } from "../types";
-import SliderItem from "./SliderItem";
 import { Colors } from '@/constants/Colors';
-import Animated, { useAnimatedRef, useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
+import SliderItem from "@/components/SliderItem";
+import Pagination from '@/components/Pagination';
 
 
 type Props = {
@@ -13,8 +14,48 @@ type Props = {
 const BreakingNews = ({newsList}: Props) => {
   const [data, setData] = useState(newsList);
   const [paginationIndex, setPaginationIndex] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
+
   const scrollX = useSharedValue(0);
   const ref = useAnimatedRef<Animated.FlatList<any>>();
+  const interval = useRef<NodeJS.Timeout>();
+  const offset = useSharedValue(0);
+  const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    if (newsList.length && newsList !== data) { 
+      setData(newsList);
+      setIsAutoPlay(true);
+    };
+  }, [newsList]);
+
+  useEffect(() => {
+    if (isAutoPlay && data.length) {
+      interval.current = setInterval(() => {
+        offset.value = offset.value + width;
+      }, 5000);
+    } else {
+      clearInterval(interval.current);
+    };
+  }, [isAutoPlay, offset, width, data]);
+
+  useDerivedValue(() => {
+    scrollTo(ref, offset.value, 0, true);
+  });
+
+  const onViewableItemsChanged = ({viewableItems}: {viewableItems: ViewToken[]}) => {
+    if (data.length && viewableItems[0].index) {
+      setPaginationIndex(viewableItems[0].index % newsList.length);
+    };
+  };
+
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 50,
+  };
+
+  const viewabilityConfigCallbackPairs = useRef([
+    { viewabilityConfig, onViewableItemsChanged },
+  ]);
   
   const renderItem = (item: NewsDataType, index: number) => {
     return (
@@ -25,7 +66,10 @@ const BreakingNews = ({newsList}: Props) => {
   const onScrollHandler = useAnimatedScrollHandler({
     onScroll: (e) => {
       scrollX.value = e.contentOffset.x;
-    }
+    },
+    onMomentumEnd: (e) => {
+      offset.value = e.contentOffset.x;
+    },
   });
 
   return (
@@ -35,17 +79,23 @@ const BreakingNews = ({newsList}: Props) => {
       <View style={styles.slideWrapper}>
         <Animated.FlatList
           ref={ref}
-          data={data}
+          data={data} 
           keyExtractor={(_, index) => `list_item${index}`}
           renderItem={({item, index}) => renderItem(item, index)}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false} 
           onScroll={onScrollHandler}
+          onScrollBeginDrag={() => setIsAutoPlay(false)}
+          onScrollEndDrag={() => setIsAutoPlay(true)}
           scrollEventThrottle={16}
           horizontal
           pagingEnabled
           onEndReachedThreshold={0.5}
           onEndReached={() => setData([...data, ...newsList])}
+          viewabilityConfigCallbackPairs={
+            viewabilityConfigCallbackPairs.current
+          }
         />
+        <Pagination items={newsList} paginationIndex={paginationIndex} scrollX={scrollX} /> 
       </View>
     </View>
   );
