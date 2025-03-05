@@ -14,7 +14,7 @@ type Props = {
 const BreakingNews = ({newsList}: Props) => {
   const [data, setData] = useState(newsList);
   const [paginationIndex, setPaginationIndex] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
 
   const scrollX = useSharedValue(0);
   const ref = useAnimatedRef<Animated.FlatList<any>>();
@@ -23,28 +23,24 @@ const BreakingNews = ({newsList}: Props) => {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    if (newsList.length && newsList !== data) { 
-      setData(newsList);
-      setIsAutoPlay(true);
-    };
-  }, [newsList]);
-
-  useEffect(() => {
-    if (isAutoPlay && data.length) {
+    if (isAutoPlay) {
       interval.current = setInterval(() => {
         offset.value = offset.value + width;
-      }, 5000);
+      }, 10000);
     } else {
       clearInterval(interval.current);
     };
-  }, [isAutoPlay, offset, width, data]);
+    return () => {
+      clearInterval(interval.current);
+    };
+  }, [isAutoPlay, offset, width]);
 
   useDerivedValue(() => {
     scrollTo(ref, offset.value, 0, true);
   });
 
   const onViewableItemsChanged = ({viewableItems}: {viewableItems: ViewToken[]}) => {
-    if (data.length && viewableItems[0].index) {
+    if (viewableItems[0].index) {
       setPaginationIndex(viewableItems[0].index % newsList.length);
     };
   };

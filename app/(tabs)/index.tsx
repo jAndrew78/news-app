@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import axios from "axios";
@@ -10,6 +10,7 @@ type Props = {}
 
 const Page = (props: Props) => {
   const {top: safeTop} = useSafeAreaInsets();
+  const [isLoading, setIsLoading] = useState(true);
   const [breakingNews, setBreakingNews] = useState<NewsDataType[]>([]);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const Page = (props: Props) => {
 
       if (response && response.data) {
         setBreakingNews(response.data.results);
+        setIsLoading(false);
       };
     } catch (error: any) {
       console.log("Error Message: ", error.message);
@@ -34,7 +36,11 @@ const Page = (props: Props) => {
       <StatusBar style="dark" />
       <Header />
       <SearchBar />
-      <BreakingNews newsList={breakingNews} />
+      {isLoading ? (
+        <ActivityIndicator size="large" style={styles(0).activityIndicator} /> 
+      ) : (
+        <BreakingNews newsList={breakingNews} />
+      )}
     </View>
   )
 };
@@ -44,6 +50,9 @@ const styles = (safeTop: number) => StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: safeTop,
+  },
+  activityIndicator: {
+    height: 100,
   },
 });
 

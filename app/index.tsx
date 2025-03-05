@@ -31,7 +31,7 @@ const Page = () => {
           <Animated.View entering={FadeInDown.delay(1800).duration(1000)}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => router.push("/(tabs)")}
+              onPress={() => router.replace("/(tabs)")}
               >
               <Animated.Text style={styles.buttonText}>
                 Oom
