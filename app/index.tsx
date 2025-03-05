@@ -1,8 +1,8 @@
 import React from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { StatusBar } from "expo-status-bar"
 import { useRouter } from "expo-router";
-import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 
 

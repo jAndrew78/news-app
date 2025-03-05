@@ -37,7 +37,7 @@ const Page = (props: Props) => {
       <Header />
       <SearchBar />
       {isLoading ? (
-        <ActivityIndicator size="large" style={styles(0).activityIndicator} /> 
+        <ActivityIndicator size="large" style={styles(null).activityIndicator} /> 
       ) : (
         <BreakingNews newsList={breakingNews} />
       )}
@@ -45,8 +45,7 @@ const Page = (props: Props) => {
   )
 };
 
-
-const styles = (safeTop: number) => StyleSheet.create({
+const styles = (safeTop: any) => StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: safeTop,

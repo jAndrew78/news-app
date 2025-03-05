@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, useWindowDimensions, View, ViewToken } from 'react-native'
 import Animated, { scrollTo, useAnimatedRef, useAnimatedScrollHandler, useDerivedValue, useSharedValue } from 'react-native-reanimated';
-import { NewsDataType } from "../types";
+import { NewsDataType } from "@/types";
 import { Colors } from '@/constants/Colors';
 import SliderItem from "@/components/SliderItem";
 import Pagination from '@/components/Pagination';
-
 
 type Props = {
   newsList: Array<NewsDataType>,
@@ -60,12 +59,8 @@ const BreakingNews = ({newsList}: Props) => {
   };
 
   const onScrollHandler = useAnimatedScrollHandler({
-    onScroll: (e) => {
-      scrollX.value = e.contentOffset.x;
-    },
-    onMomentumEnd: (e) => {
-      offset.value = e.contentOffset.x;
-    },
+    onScroll: (e) => scrollX.value = e.contentOffset.x,
+    onMomentumEnd: (e) => offset.value = e.contentOffset.x
   });
 
   return (
@@ -76,20 +71,18 @@ const BreakingNews = ({newsList}: Props) => {
         <Animated.FlatList
           ref={ref}
           data={data} 
+          horizontal
+          pagingEnabled
+          scrollEventThrottle={16}
+          onScroll={onScrollHandler}
+          onEndReachedThreshold={0.5}
           keyExtractor={(_, index) => `list_item${index}`}
           renderItem={({item, index}) => renderItem(item, index)}
           showsHorizontalScrollIndicator={false} 
-          onScroll={onScrollHandler}
-          onScrollBeginDrag={() => setIsAutoPlay(false)}
           onScrollEndDrag={() => setIsAutoPlay(true)}
-          scrollEventThrottle={16}
-          horizontal
-          pagingEnabled
-          onEndReachedThreshold={0.5}
+          onScrollBeginDrag={() => setIsAutoPlay(false)}
           onEndReached={() => setData([...data, ...newsList])}
-          viewabilityConfigCallbackPairs={
-            viewabilityConfigCallbackPairs.current
-          }
+          viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         />
         <Pagination items={newsList} paginationIndex={paginationIndex} scrollX={scrollX} /> 
       </View>

@@ -1,12 +1,7 @@
-import { Pressable, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
+import { Pressable, StyleSheet } from "react-native";
+import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
 import { icon } from "@/constants/Icons";
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 
 const TabBarButton = ({ onPress, onLongPress, isFocused, routeName, label }) => {
@@ -18,14 +13,6 @@ const TabBarButton = ({ onPress, onLongPress, isFocused, routeName, label }) => 
       { duration: 50 }
     );
   }, [opacity, isFocused]);
-
-  // const animatedTextStyle = useAnimatedStyle(() => {
-  //   const opacityValue = interpolate(opacity.value, [0, 1], [1, 0]);
-
-  //   return {
-  //     opacity: opacityValue,
-  //   };
-  // });
 
   return (
     <Pressable
@@ -44,7 +31,6 @@ const TabBarButton = ({ onPress, onLongPress, isFocused, routeName, label }) => 
             fontSize: 12,
             fontWeight: isFocused ? "800" : "500",
           },
-          // animatedTextStyle,
         ]}
       >
         {label}

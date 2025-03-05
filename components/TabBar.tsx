@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { View, StyleSheet, LayoutChangeEvent } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import TabBarButton from "@/components/TabBarButton";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { useState } from "react";
+import TabBarButton from "@/components/TabBarButton";
 import { Colors } from "@/constants/Colors";
 
 

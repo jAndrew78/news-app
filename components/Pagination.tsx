@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { NewsDataType } from '@/types';
+import { StyleSheet, View } from 'react-native';
 import Anitmated, { SharedValue } from 'react-native-reanimated';
+import { NewsDataType } from '@/types';
 import { Colors } from '@/constants/Colors';
-import { useState, useEffect } from 'react';
 
 type Props = {
   items: NewsDataType[],

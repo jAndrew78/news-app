@@ -1,7 +1,7 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
-import { NewsDataType } from '@/types';
 import Animated, { Extrapolation, interpolate, SharedValue, useAnimatedStyle } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
+import { NewsDataType } from '@/types';
 import { Colors } from '@/constants/Colors';
 
 type Props = {
